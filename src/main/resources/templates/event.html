@@ -18,6 +18,7 @@
         />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="./bootstrap/css/styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="./css/style.css" />
     </head>
     <body>
         <!-- Navigation-->
@@ -51,13 +52,8 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#!">About</a>
                         </li>
-                        <li
-                            class="nav-item"
-                            sec:authorize="hasAuthority('ADMIN')"
-                        >
-                            <a class="nav-link" th:href="@{/adminpanel}"
-                                >Admin panel</a
-                            >
+                        <li class="nav-item" sec:authorize="isAuthenticated() == 'ADMIN'">
+                            <a class="nav-link" th:href="${/adminPanelPage}">Admin panel</a>
                         </li>
                     </ul>
                     <div class="d-flex">
@@ -107,56 +103,58 @@
             </div>
         </header>
         <!-- Section-->
-
-        <section class="py-5">
-            <div class="container px-4 px-lg-5 mt-5">
-                <div
-                    class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
-                    th:field="*{events}"
-                >
-                    <div class="col mb-5" th:each="event: ${events}">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img
-                                class="card-img-top"
-                                th:src="${event.imgUrl}"
-                                alt="..."
-                            />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5
-                                        class="fw-bolder"
-                                        th:text="${event.name}"
-                                    ></h5>
-                                    <span
-                                        >Date:
-                                        <span
-                                            th:text="${event.date.toString().substring(0, 10)}"
-                                        ></span>
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div
-                                class="card-footer p-4 pt-0 border-top-0 bg-transparent"
-                            >
-                                <div class="text-center">
-                                    <a
-                                        class="btn btn-outline-dark mt-auto"
-                                        href="#"
-                                        >See details</a
-                                    >
-                                </div>
-                            </div>
+        <section class="m-3">
+            <div class="container">
+              <div class="card p-4 border-0">
+                <div class="row ">
+                  <div class="col-md-4">
+                      <img src="https://images.pexels.com/photos/1280162/pexels-photo-1280162.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" class="w-100 rounded">
+                    </div>
+                    <div class="col-md-8 px-3 border-top-0">
+                      <div class="card-block px-3">
+                        <h4 class="card-title text-dark">Ime dogadjaja</h4>
+                        <p class="card-text text-dark">Lokacija</p>
+                        <p class="card-text text-dark">Datum</p>
+                        <p class="card-text text-dark">Opis</p>
+                        <p class="card-text text-dark">Kategorija</p>
+                      </div>
+                    </div>
+          
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex mt-3">
+                <div class="col-6">
+                    <div class="card ">
+                        <div class="card-body">
+                            <h4 class="card-title">Latest Comments</h4>
                         </div>
+                        <div class="comment-widgets">
+                            <!-- Comment Row -->
+                            <div class="d-flex flex-row comment-row m-t-0 my-3">
+                                <div class="p-2"><img src="https://i.imgur.com/Ur43esv.jpg" alt="user" width="50" class="rounded-circle"></div>
+                                <div class="comment-text w-100 d-flex justify-content-center flex-column">
+                                    <h6 class="font-medium m-0">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
+                                </div>
+                            </div> <!-- Comment Row -->
+                        </div> <!-- Card -->
                     </div>
                 </div>
             </div>
-        </section>
+
+            <form class="m-3" sec:authorize="!isAnonymous()">
+                <div class="form-group">
+                  <label for="inputComment" class="mb-2">Add coment</label>
+                  <input type="text" class="form-control w-50" id="inputComment" placeholder="Enter yout comment">
+                </div>
+                <button type="submit" class="btn btn-dark mt-3">Submit</button>
+              </form>
+
+          </section>
+        <!-- End of card -->
         <!-- Footer-->
-        <footer class="py-5 bg-dark fixed-bottom">
+        <footer class="py-5 bg-dark">
             <div class="container">
                 <p class="m-0 text-center text-white">
                     Copyright &copy; Your Website 2022

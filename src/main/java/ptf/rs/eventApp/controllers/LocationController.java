@@ -29,6 +29,6 @@ public class LocationController {
     public String addNewLocation(@ModelAttribute("location") LocationIn location, RedirectAttributes message) {
         _LocationService.addNewLocation(location);
         message.addFlashAttribute("message", "Location successfully added");
-        return "redirect:addlocation";
+        return "redirect:adminpanel";
     }
 }

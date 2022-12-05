@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Shop Homepage - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
+        />
+        <script
+            src="https://kit.fontawesome.com/ed23f4033a.js"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="./bootstrap/css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand">Minty</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div
+                    class="collapse navbar-collapse"
+                    id="navbarSupportedContent"
+                >
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link active"
+                                aria-current="page"
+                                href="#!"
+                                >Home</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#!">About</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                id="navbarDropdown"
+                                href="#"
+                                role="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                                >Shop</a
+                            >
+                            <ul
+                                class="dropdown-menu"
+                                aria-labelledby="navbarDropdown"
+                            >
+                                <li>
+                                    <a class="dropdown-item" href="#!"
+                                        >All Products</a
+                                    >
+                                </li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li>
+                                    <a class="dropdown-item" href="#!"
+                                        >Popular Items</a
+                                    >
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#!"
+                                        >New Arrivals</a
+                                    >
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="d-flex">
+                        <a
+                            th:href="@{/profile}"
+                            class="btn btn-outline-dark mx-1"
+                            type="submit"
+                            sec:authorize="isAuthenticated()"
+                        >
+                            <i class="bi bi-person-fill"></i>
+                            Profile
+                        </a>
+                        <a
+                            th:href="@{/logout}"
+                            class="btn btn-outline-dark mx-1"
+                            type="submit"
+                            sec:authorize="isAuthenticated()"
+                        >
+                            <i class="bi bi-box-arrow-left"></i>
+                            Logout
+                        </a>
+                        <a
+                            th:href="@{/login}"
+                            class="btn btn-outline-dark"
+                            type="submit"
+                            sec:authorize="isAnonymous()"
+                        >
+                            <i class="bi bi-box-arrow-in-right"></i>
+                            Sign in
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Minty</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Doloribus et animi porro ea cumque, dolore quas dolores
+                        veritatis illum impedit distinctio minus itaque!
+                        Ducimus, debitis! Quo eos cum eveniet magni?
+                    </p>
+                </div>
+            </div>
+        </header>
+        <!-- Section-->
+        <section class="m-3">
+            <div class="d-flex flex-wrap">
+                <div class="col-sm-4">
+                    <h3>Add event</h3>
+                    <form
+                        th:action="@{/addevent}"
+                        th:object="${event}"
+                        method="post"
+                    >
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="name"
+                                placeholder="Event name"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                name="description"
+                                placeholder="Description"
+                                required
+                            ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <div class="input-group date" id="datepicker">
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Date"
+                                        name="date"
+                                        required
+                                    />
+                                    <span class="input-group-append">
+                                        <span class="input-group-text bg-white">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="imgUrl"
+                                placeholder="Image url"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="categoryId">
+                                <option value="0">Select category</option>
+                                <option
+                                    th:each="category : ${categories}"
+                                    th:value="${category.id}"
+                                    th:text="${category.name}"
+                                ></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="locationId">
+                                <option value="0">Select location</option>
+                                <option
+                                    th:each="location : ${locations}"
+                                    th:value="${location.id}"
+                                    th:text="${location.name}"
+                                    name="locationId"
+                                ></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-dark">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4">
+                    <h3>Add category</h3>
+                    <form
+                        th:action="@{/addcategory}"
+                        th:object="${category}"
+                        method="post"
+                    >
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="name"
+                                placeholder="Category name"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option value="">Choose icon</option>
+                                <option class="fa" th:value="fa-address-card">
+                                    &#xf2bb;
+                                </option>
+                                <option class="fa" th:value="fa-bell">
+                                    &#xf0f3;
+                                </option>
+                                <option class="fa" th:value="fa-bookmark">
+                                    &#xf02e;
+                                </option>
+                                <option class="fa" th:value="fa-building">
+                                    &#xf1ad;
+                                </option>
+                                <option class="fa" th:value="fa-volleyball">
+                                    &#xf45f;
+                                </option>
+                                <option class="fa" th:value="fa-bicycle">
+                                    &#xf206;
+                                </option>
+                                <option class="fa" th:value="fa-dumbbell">
+                                    &#xf44b;
+                                </option>
+                                <option class="fa" th:value="fa-person-running">
+                                    &#xf70c;
+                                </option>
+                                <option class="fa" th:value="fa-person-skiing">
+                                    &#xf7c9;
+                                </option>
+                                <option class="fa" th:value="fa-shirt">
+                                    &#xf553;
+                                </option>
+                                <option class="fa" th:value="fa-microchip">
+                                    &#xf2db;
+                                </option>
+                                <option class="fa" th:value="fa-tree">
+                                    &#xf1bb;
+                                </option>
+                                <option class="fa" th:value="fa-volcano">
+                                    &#xf770;
+                                </option>
+                                <option class="fa" th:value="fa-video">
+                                    &#xf03d;
+                                </option>
+                                <option class="fa" th:value="fa-comments">
+                                    &#xf086;
+                                </option>
+                                <option class="fa" th:value="fa-street-view">
+                                    &#xf21d;
+                                </option>
+                                <option class="fa" th:value="fa-teamspeak">
+                                    &#xf4f9;
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-dark">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4">
+                    <h3>Add location</h3>
+                    <form
+                        th:action="@{/addlocation}"
+                        th:object="${location}"
+                        method="post"
+                    >
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="name"
+                                placeholder="Location name"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="imgUrl"
+                                placeholder="Image url"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                name="description"
+                                placeholder="Description"
+                                required
+                            ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-dark">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container">
+                <p class="m-0 text-center text-white">
+                    Copyright &copy; Your Website 2022
+                </p>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="./bootstrap/js/scripts.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $("#datepicker").datepicker();
+            });
+        </script>
+    </body>
+</html>

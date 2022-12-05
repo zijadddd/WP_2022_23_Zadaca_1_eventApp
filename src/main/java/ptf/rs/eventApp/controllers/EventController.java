@@ -27,7 +27,7 @@ public class EventController {
     public String addNewEvent(@ModelAttribute("event") EventIn event, RedirectAttributes message) {
         _EventService.addNewEvent(event);
         message.addFlashAttribute("message", "Event successfully added.");
-        return "redirect:addevent";
+        return "redirect:adminPanel";
     }
     
 }

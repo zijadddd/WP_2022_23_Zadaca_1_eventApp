@@ -29,6 +29,6 @@ public class CategoryController {
     public String addNewCategory(@ModelAttribute("category") CategoryIn category, RedirectAttributes message) {
         _CategoryService.addNewCategory(category);
         message.addFlashAttribute("message", "Category successfully added");
-        return "redirect:addcategory";
+        return "redirect:adminpanel";
     }
 }
