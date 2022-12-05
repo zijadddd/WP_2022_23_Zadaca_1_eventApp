@@ -5,6 +5,7 @@ import ptf.rs.eventApp.models.entities.Category;
 public class CategoryOut {
     private Integer id;
     private String name;
+    private String icon;
 
     public CategoryOut() {
     }
@@ -12,6 +13,7 @@ public class CategoryOut {
     public CategoryOut(Category category) {
         this.id = category.getId();
         this.name = category.getName();
+        this.icon = category.getIcon();
     }
 
     public Integer getId() {
@@ -30,7 +32,11 @@ public class CategoryOut {
         this.name = name;
     }
 
-    
+    public String getIcon() {
+        return this.icon;
+    }
 
-    
+    public void setIcon(String icon) {
+        this.icon = icon;
+    } 
 }

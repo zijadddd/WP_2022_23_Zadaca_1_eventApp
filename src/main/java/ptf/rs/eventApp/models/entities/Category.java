@@ -21,20 +21,19 @@ public class Category {
     @Size(max = 255)
     private String name;
 
+    @Size(max = 255)
+    private String icon;
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Event> events;
 
     public Category() {
     }
 
-    public Category(int id) {
-        this.id = id;
-        this.name = "null";
-    }
-
     public Category(CategoryIn category) {
         this.id = category.getId();
         this.name = category.getName();
+        this.icon = category.getIcon();
     }
 
     public Integer getId() {
@@ -61,5 +60,11 @@ public class Category {
         this.events = events;
     }
 
-    
+    public String getIcon() {
+        return this.icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 }

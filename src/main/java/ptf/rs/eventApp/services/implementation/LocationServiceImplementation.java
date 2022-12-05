@@ -38,7 +38,4 @@ public class LocationServiceImplementation implements LocationService {
         } catch(Exception e) {}
         return null;
     }
-
-    
-
 }

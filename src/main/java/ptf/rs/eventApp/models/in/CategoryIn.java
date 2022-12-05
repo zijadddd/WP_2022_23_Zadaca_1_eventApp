@@ -10,6 +10,9 @@ public class CategoryIn {
     @Size(max = 255)
     private String name;
 
+    @Size(max = 255)
+    private String icon;
+
     public CategoryIn() {
     }
 
@@ -29,5 +32,14 @@ public class CategoryIn {
         this.name = name;
     }
 
+    public String getIcon() {
+        return this.icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    
     
 }

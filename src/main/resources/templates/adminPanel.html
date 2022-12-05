@@ -147,6 +147,9 @@
         </header>
         <!-- Section-->
         <section class="m-3">
+            <div th:if="${message} != null" class="w-100">
+                <p th:text="${message}" class="text-center"></p>
+            </div>
             <div class="d-flex flex-wrap">
                 <div class="col-sm-4">
                     <h3>Add event</h3>
@@ -211,13 +214,12 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <select class="form-control" id="locationId">
+                            <select class="form-control" name="locationId">
                                 <option value="0">Select location</option>
                                 <option
                                     th:each="location : ${locations}"
                                     th:value="${location.id}"
                                     th:text="${location.name}"
-                                    name="locationId"
                                 ></option>
                             </select>
                         </div>
@@ -245,7 +247,7 @@
                             />
                         </div>
                         <div class="form-group">
-                            <select class="form-control">
+                            <select class="form-control" name="icon">
                                 <option value="">Choose icon</option>
                                 <option class="fa" th:value="fa-address-card">
                                     &#xf2bb;

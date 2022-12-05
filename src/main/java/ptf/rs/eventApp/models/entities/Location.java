@@ -20,20 +20,23 @@ public class Location {
     @Size(max = 255)
     private String name;
 
+    @Size(max = 1000)
+    private String description;
+
+    @Size(max = 100)
+    private String imgUrl;
+
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
     private List<Event> events;
 
     public Location() {
     }
 
-    public Location(int id) {
-        this.id = id;
-        this.name = "null";
-    } 
-
     public Location(LocationIn eventLocationIn) {
         this.id = eventLocationIn.getId();
         this.name = eventLocationIn.getName();
+        this.description = eventLocationIn.getDescription();
+        this.imgUrl = eventLocationIn.getImgUrl();
     }
 
     public Integer getId() {
@@ -59,5 +62,22 @@ public class Location {
     public void setEvents(List<Event> events) {
         this.events = events;
     }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImgUrl() {
+        return this.imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+    
     
 }
