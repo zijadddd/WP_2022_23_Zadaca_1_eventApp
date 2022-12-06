@@ -11,7 +11,6 @@ import ptf.rs.eventApp.models.in.CategoryIn;
 import ptf.rs.eventApp.models.in.LocationIn;
 import ptf.rs.eventApp.models.in.UserIn;
 import ptf.rs.eventApp.services.CategoryService;
-import ptf.rs.eventApp.services.EventService;
 import ptf.rs.eventApp.services.LocationService;
 import ptf.rs.eventApp.services.UserService;
 
@@ -26,9 +25,6 @@ public class RoutingPagesController {
 
     @Autowired
     private UserService _UserService;
-
-    @Autowired
-    private EventService _EventService;
 
     @GetMapping("/login")
     public String loginPage() {
@@ -60,7 +56,7 @@ public class RoutingPagesController {
     public String adminPanelPage(Model model) {
         model.addAttribute("locations", _LocationService.getAllLocations());
         model.addAttribute("categories", _CategoryService.getAllCategories());
-        return "adminPanel";
+        return "adminpanel";
     }
 
     @GetMapping("/profile")

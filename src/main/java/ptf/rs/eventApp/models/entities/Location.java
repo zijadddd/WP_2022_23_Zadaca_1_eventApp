@@ -23,7 +23,7 @@ public class Location {
     @Size(max = 1000)
     private String description;
 
-    @Size(max = 100)
+    @Size(max = 1000)
     private String imgUrl;
 
     @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
