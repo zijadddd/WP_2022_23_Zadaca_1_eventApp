@@ -40,7 +40,7 @@ public class EventServiceImplementation implements EventService {
     @Override
     public EventOut addNewEvent(EventIn event) {
         Event temp = new Event(event);
-        List<Category> categories = _CategoryRepository.findById(event.getCategoryId()).stream().collect(Collectors.toList());;
+        List<Category> categories = _CategoryRepository.findById(event.getCategoryId()).stream().collect(Collectors.toList());
         if (categories.isEmpty()) {
             throw new IllegalArgumentException("Invalid data");
         }
