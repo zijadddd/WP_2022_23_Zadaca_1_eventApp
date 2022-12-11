@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import ptf.rs.eventApp.services.CustomUserDetailService;
+import ptf.rs.eventApp.services.UserDetailService;
 
 @Configuration
 @EnableWebSecurity
@@ -19,7 +19,7 @@ import ptf.rs.eventApp.services.CustomUserDetailService;
 public class SecurityConfiguration {
 
     @Autowired
-    private CustomUserDetailService _CustomUserDetailService;
+    private UserDetailService _UserDetailService;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -29,6 +29,7 @@ public class SecurityConfiguration {
         .antMatchers("/registration", "/").permitAll()
         .antMatchers("/registration/**").permitAll()
         .antMatchers("/event").permitAll()
+        .antMatchers("/event/{id}").permitAll()
         .antMatchers("/addlocation").hasAuthority("ADMIN")
         .antMatchers("/addcategory").hasAuthority("ADMIN")
         .antMatchers("/adminpanel").hasAuthority("ADMIN")
@@ -58,7 +59,7 @@ public class SecurityConfiguration {
         .key("security-remember-secret")
         .tokenValiditySeconds(86400)
         .and()
-        .userDetailsService(_CustomUserDetailService)
+        .userDetailsService(_UserDetailService)
         .build();
     }
 

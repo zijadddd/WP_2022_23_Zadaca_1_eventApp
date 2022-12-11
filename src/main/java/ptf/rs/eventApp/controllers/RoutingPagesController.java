@@ -65,9 +65,4 @@ public class RoutingPagesController {
         model.addAttribute("user", temp);
         return "profile";
     }
-
-    @GetMapping("/event")
-    public String eventPage() {
-        return "event";
-    }
 }

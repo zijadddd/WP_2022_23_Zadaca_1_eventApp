@@ -119,7 +119,7 @@
                             <!-- Product image-->
                             <img
                                 class="card-img-top"
-                                th:src="${event.imgUrl}"
+                                th:src="${event.getImgUrl()}"
                                 alt="..."
                             />
                             <!-- Product details-->
@@ -128,7 +128,7 @@
                                     <!-- Product name-->
                                     <h5
                                         class="fw-bolder"
-                                        th:text="${event.name}"
+                                        th:text="${event.getName()}"
                                     ></h5>
                                     <span
                                         >Date:
@@ -145,7 +145,7 @@
                                 <div class="text-center">
                                     <a
                                         class="btn btn-outline-dark mt-auto"
-                                        href="#"
+                                        th:href="@{'/event/' + ${event.getId()}}"
                                         >See details</a
                                     >
                                 </div>

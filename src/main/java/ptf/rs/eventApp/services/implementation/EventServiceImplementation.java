@@ -38,6 +38,17 @@ public class EventServiceImplementation implements EventService {
     }
 
     @Override
+    public EventOut getEventById(int id) {
+        try {
+            if(_EventRepository.findById(id) == null) throw new Exception("Event did not found.");
+            return new EventOut(_EventRepository.findById(id));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
     public EventOut addNewEvent(EventIn event) {
         Event temp = new Event(event);
         List<Category> categories = _CategoryRepository.findById(event.getCategoryId()).stream().collect(Collectors.toList());
@@ -54,5 +65,4 @@ public class EventServiceImplementation implements EventService {
         _EventRepository.save(temp);
         return new EventOut(temp);
     }
-    
 }

@@ -7,5 +7,6 @@ import ptf.rs.eventApp.models.out.EventOut;
 
 public interface EventService {
     public List<EventOut> getAllEvents();
+    public EventOut getEventById(int id);
     public EventOut addNewEvent(EventIn event);
 }

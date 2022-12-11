@@ -7,17 +7,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import ptf.rs.eventApp.models.entities.User;
-import ptf.rs.eventApp.repositories.UserLoadInfoRepository;
+import ptf.rs.eventApp.repositories.UserRepository;
 
 @Service
-public class CustomUserDetailService implements UserDetailsService {
+public class UserDetailService implements UserDetailsService {
 
     @Autowired
-    private UserLoadInfoRepository _UserLoadInfoRepository;
+    private UserRepository _UserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        final User user = _UserLoadInfoRepository.findByEmail(username);
+        final User user = _UserRepository.findByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException(username);
         }

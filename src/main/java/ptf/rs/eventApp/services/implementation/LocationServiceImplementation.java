@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import ptf.rs.eventApp.models.entities.Location;
 import ptf.rs.eventApp.models.in.LocationIn;
+import ptf.rs.eventApp.models.out.EventOut;
 import ptf.rs.eventApp.models.out.LocationOut;
 import ptf.rs.eventApp.repositories.LocationRepository;
 import ptf.rs.eventApp.services.LocationService;
@@ -24,6 +25,17 @@ public class LocationServiceImplementation implements LocationService {
         List<LocationOut> processedLocations = new ArrayList<LocationOut>();
         for(Location location : locations) processedLocations.add(new LocationOut(location));
         return processedLocations;
+    }
+
+    @Override
+    public LocationOut getLocationById(int id) {
+        try {
+            if(_LocationRepository.findById(id) == null) throw new Exception("Location did not found.");
+            return new LocationOut(_LocationRepository.findById(id));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     @Override

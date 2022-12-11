@@ -7,5 +7,6 @@ import ptf.rs.eventApp.models.out.LocationOut;
 
 public interface LocationService {
     public List<LocationOut> getAllLocations();
+    public LocationOut getLocationById(int id);
     public LocationOut addNewLocation(LocationIn locationIn);
 }

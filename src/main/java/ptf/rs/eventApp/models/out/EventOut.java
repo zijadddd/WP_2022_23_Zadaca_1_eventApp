@@ -1,6 +1,7 @@
 package ptf.rs.eventApp.models.out;
 
 import java.util.Date;
+import java.util.Optional;
 
 import ptf.rs.eventApp.models.entities.Event;
 

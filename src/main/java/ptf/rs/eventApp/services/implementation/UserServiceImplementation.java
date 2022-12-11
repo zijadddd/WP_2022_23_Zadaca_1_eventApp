@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import ptf.rs.eventApp.models.entities.User;
 import ptf.rs.eventApp.models.in.UserIn;
 import ptf.rs.eventApp.models.out.UserOut;
-import ptf.rs.eventApp.repositories.UserLoadInfoRepository;
 import ptf.rs.eventApp.repositories.UserRepository;
 import ptf.rs.eventApp.services.UserService;
 
@@ -23,9 +22,6 @@ public class UserServiceImplementation implements UserService {
     @Autowired
     private PasswordEncoder _PasswordEncoder;
 
-    @Autowired 
-    private UserLoadInfoRepository _UserLoadInfoRepository;
-
     @Override
     public List<UserOut> getAllUsers() {
         List<User> users = _UserRepository.findAll();
@@ -35,8 +31,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     public User getUserByEmail(String username) {
-        User user = _UserLoadInfoRepository.findByEmail(username);
-        return user;
+        return _UserRepository.findByEmail(username);
     }
 
     @Override

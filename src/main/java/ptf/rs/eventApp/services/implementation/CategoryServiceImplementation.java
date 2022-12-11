@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import ptf.rs.eventApp.models.entities.Category;
 import ptf.rs.eventApp.models.in.CategoryIn;
 import ptf.rs.eventApp.models.out.CategoryOut;
+import ptf.rs.eventApp.models.out.LocationOut;
 import ptf.rs.eventApp.repositories.CategoryRepository;
 import ptf.rs.eventApp.services.CategoryService;
 
@@ -24,6 +25,17 @@ public class CategoryServiceImplementation implements CategoryService {
         List<CategoryOut> processedCategories = new ArrayList<CategoryOut>();
         for(Category category : categories) processedCategories.add(new CategoryOut(category));
         return processedCategories;
+    }
+
+    @Override
+    public CategoryOut getCategoryById(int id) {
+        try {
+            if(_CategoryRepository.findById(id) == null) throw new Exception("Category did not found.");
+            return new CategoryOut(_CategoryRepository.findById(id));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     @Override
