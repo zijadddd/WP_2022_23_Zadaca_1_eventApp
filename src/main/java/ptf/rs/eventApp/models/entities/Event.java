@@ -2,14 +2,9 @@ package ptf.rs.eventApp.models.entities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import ptf.rs.eventApp.models.in.EventIn;
 
@@ -35,6 +30,9 @@ public class Event {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Category category;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    private List<Comment> comments;
 
     public Event() {
     }

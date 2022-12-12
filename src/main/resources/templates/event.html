@@ -128,15 +128,19 @@
             <div class="d-flex mt-3">
                 <div class="col-6">
                     <div class="card ">
-                        <div class="card-body">
+                        <div class="card-body" th:if="${comments.size() == 0}">
+                            <h4 class="card-title">There's no comments on this event.</h4>
+                        </div>
+                        <div class="card-body" th:if="${comments.size() != 0}">
                             <h4 class="card-title">Latest Comments</h4>
                         </div>
-                        <div class="comment-widgets">
+                        <div class="comment-widgets" th:if="${comments.size() != 0}" th:each="comment: ${comments}">
                             <!-- Comment Row -->
                             <div class="d-flex flex-row comment-row m-t-0 my-3">
-                                <div class="p-2"><img src="https://i.imgur.com/Ur43esv.jpg" alt="user" width="50" class="rounded-circle"></div>
+                                <div class="p-2"><img src="https://bootdey.com/img/Content/avatar/avatar7.png" width="50" class="rounded-circle"></div>
                                 <div class="comment-text w-100 d-flex justify-content-center flex-column">
-                                    <h6 class="font-medium m-0">James Thomas</h6> <span class="m-b-15 d-block">This is awesome website. I would love to comeback again. </span>
+                                    <h6 class="font-medium m-0" th:text="${comment.getUser().getFirstName()}"></h6>
+                                    <span class="m-b-15 d-block" th:text="${comment.getContent()}"></span>
                                 </div>
                             </div> <!-- Comment Row -->
                         </div> <!-- Card -->
@@ -144,10 +148,10 @@
                 </div>
             </div>
 
-            <form class="m-3" sec:authorize="!isAnonymous()">
+            <form class="m-3" sec:authorize="!isAnonymous()" method="post" th:action="@{'/addcomment/' + ${event.getId()}}" th:object="${comment}">
                 <div class="form-group">
-                  <label for="inputComment" class="mb-2">Add coment</label>
-                  <input type="text" class="form-control w-50" id="inputComment" placeholder="Enter yout comment">
+                  <label for="inputComment" class="mb-2">Add comment</label>
+                  <input type="text" class="form-control w-50" id="inputComment" placeholder="Enter yout comment" name="content">
                 </div>
                 <button type="submit" class="btn btn-dark mt-3">Submit</button>
               </form>

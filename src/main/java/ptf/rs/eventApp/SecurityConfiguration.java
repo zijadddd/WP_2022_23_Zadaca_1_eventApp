@@ -35,6 +35,8 @@ public class SecurityConfiguration {
         .antMatchers("/adminpanel").hasAuthority("ADMIN")
         .antMatchers("/getlocations").hasAuthority("ADMIN")
         .antMatchers("/getcategories").hasAuthority("ADMIN")
+        .antMatchers("/addcomment").hasAuthority("ADMIN")
+        .antMatchers("/addcomment").hasAuthority("USER")
         .antMatchers("/css/**").permitAll()
         .antMatchers("/bootstrap/**").permitAll()
         .anyRequest().authenticated()

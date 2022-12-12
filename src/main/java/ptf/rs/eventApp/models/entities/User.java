@@ -1,13 +1,11 @@
 package ptf.rs.eventApp.models.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 import ptf.rs.eventApp.models.in.UserIn;
+
+import java.util.List;
 
 @Entity
 public class User {
@@ -32,7 +30,9 @@ public class User {
     // 0 - korisnik, 1 - administrator
     private Integer isBanned;
     // 0 - nije banan, 1 - banan
-    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Comment> comments;
+
     public User() {
     }
 
@@ -90,6 +90,14 @@ public class User {
 
     public void setBanan(Integer isBanned) {
         this.isBanned = isBanned;
+    }
+
+    public List<Comment> getComments() {
+        return this.comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public User(UserIn user) {
