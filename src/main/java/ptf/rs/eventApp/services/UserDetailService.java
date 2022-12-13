@@ -13,14 +13,13 @@ import ptf.rs.eventApp.repositories.UserRepository;
 public class UserDetailService implements UserDetailsService {
 
     @Autowired
+
     private UserRepository _UserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final User user = _UserRepository.findByEmail(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(username);
-        }
+        if (user == null) throw new UsernameNotFoundException(username);
         UserDetails newUser;
         if(user.getRoleId() == 0) newUser = org.springframework.security.core.userdetails.User.withUsername(user.getEmail()).password(user.getPassword()).authorities("USER").build();
         else newUser = org.springframework.security.core.userdetails.User.withUsername(user.getEmail()).password(user.getPassword()).authorities("ADMIN").build();
