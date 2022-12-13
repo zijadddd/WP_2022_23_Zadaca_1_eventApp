@@ -40,11 +40,12 @@ public class EventController {
     public String getEventById(@PathVariable String id, Model model) {
         EventOut event = _EventService.getEventById(Integer.parseInt(id));
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userEmail = authentication.getName();
+        String userName = authentication.getName();
         model.addAttribute("event", event);
         model.addAttribute("location", _LocationService.getLocationById(event.getLocationId()));
         model.addAttribute("category", _CategoryService.getCategoryById(event.getCategoryId()));
         model.addAttribute("comments", _CommentService.getCommentsForEvent(Integer.parseInt(id)));
+        model.addAttribute("adminEmail", userName);
         return "event";
     }
 

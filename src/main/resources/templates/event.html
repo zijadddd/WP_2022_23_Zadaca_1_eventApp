@@ -145,7 +145,8 @@
                                     <small><span class="text-muted float-right" th:text="${comment.getDate().toString().substring(0, 16)}"></span></small>
                                 </span>
                                 <span class="m-b-15 d-block" th:text="${comment.getContent()}"></span>
-                                <div class="comment-footer col-6">
+                                <small><p class="text-danger" th:if="${comment.getUser().getIsBanned() == 1}">User is banned.</p></small>
+                                <div class="comment-footer col-6" th:if="${(comment.getUser().getIsBanned() == 0) && (comment.getUser().getEmail() != adminEmail)}">
                                     <form method="post" th:action="@{'/banuser/' + ${comment.getUser().getEmail()}}" sec:authorize="hasAuthority('ADMIN')">
                                         <button class="btn btn-danger btn-sm" type="submit">Ban user</button>
                                     </form>

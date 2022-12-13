@@ -20,7 +20,7 @@ public class UserController {
     @PostMapping("/banuser/{useremail}")
     public String banUser(@PathVariable String useremail) {
         _UserService.banUser(useremail);
-        return "redirect:index";
+        return "redirect:/";
     }
 
     @PostMapping("/registration")

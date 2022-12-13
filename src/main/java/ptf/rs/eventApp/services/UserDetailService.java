@@ -20,9 +20,12 @@ public class UserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final User user = _UserRepository.findByEmail(username);
         if (user == null) throw new UsernameNotFoundException(username);
-        UserDetails newUser;
-        if(user.getRoleId() == 0) newUser = org.springframework.security.core.userdetails.User.withUsername(user.getEmail()).password(user.getPassword()).authorities("USER").build();
-        else newUser = org.springframework.security.core.userdetails.User.withUsername(user.getEmail()).password(user.getPassword()).authorities("ADMIN").build();
-        return newUser;
+        if (user.getIsBanned() == 1) throw new IllegalStateException("Banovan korisnik.");
+        else {
+            UserDetails newUser;
+            if(user.getRoleId() == 0) newUser = org.springframework.security.core.userdetails.User.withUsername(user.getEmail()).password(user.getPassword()).authorities("USER").build();
+            else newUser = org.springframework.security.core.userdetails.User.withUsername(user.getEmail()).password(user.getPassword()).authorities("ADMIN").build();
+            return newUser;
+        }
     }
 }
