@@ -47,4 +47,11 @@ public class UserServiceImplementation implements UserService {
         } catch (Exception e) {}
         return null;
     }
+
+    @Override
+    public void banUser(String userEmail) {
+        User user = _UserRepository.findByEmail(userEmail);
+        user.setBanan(1);
+        _UserRepository.save(user);
+    }
 }

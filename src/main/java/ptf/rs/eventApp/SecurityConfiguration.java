@@ -36,6 +36,7 @@ public class SecurityConfiguration {
         .antMatchers("/getlocations").hasAuthority("ADMIN")
         .antMatchers("/getcategories").hasAuthority("ADMIN")
         .antMatchers("/addcomment").hasAuthority("ADMIN")
+        .antMatchers("/banuser/{useremail}").hasAuthority("ADMIN")
         .antMatchers("/addcomment").hasAuthority("USER")
         .antMatchers("/css/**").permitAll()
         .antMatchers("/bootstrap/**").permitAll()

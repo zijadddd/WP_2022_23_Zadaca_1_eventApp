@@ -10,4 +10,5 @@ public interface UserService {
     public List<UserOut> getAllUsers();
     public User getUserByEmail(String username);
     public UserOut registerUser(UserIn userIn);
+    public void banUser(String userEmail);
 }

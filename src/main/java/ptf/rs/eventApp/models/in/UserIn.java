@@ -84,5 +84,4 @@ public class UserIn {
         this.isBanned = isBanned;
     }
 
-    
 }

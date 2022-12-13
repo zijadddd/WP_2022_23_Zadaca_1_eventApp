@@ -36,6 +36,16 @@ public class User {
     public User() {
     }
 
+    public User(UserIn user) {
+        this.id = user.getId();
+        this.firstName = user.getFirstName();
+        this.lastName = user.getLastName();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.roleId = 0;
+        this.isBanned = 0;
+    }
+
     public Integer getId() {
         return this.id;
     }
@@ -100,15 +110,8 @@ public class User {
         this.comments = comments;
     }
 
-    public User(UserIn user) {
-        this.id = user.getId();
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
-        this.email = user.getEmail();
-        this.password = user.getPassword();
-        this.roleId = 0;
-        this.isBanned = 0;
+    public String getFullName() {
+        return this.getFirstName() + " " + this.getLastName();
     }
 
-    
 }

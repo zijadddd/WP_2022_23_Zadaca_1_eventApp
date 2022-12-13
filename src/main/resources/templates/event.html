@@ -127,24 +127,29 @@
             </div>
             <div class="d-flex mt-3">
                 <div class="col-6">
-                    <div class="card ">
+                    <div class="card">
                         <div class="card-body" th:if="${comments.size() == 0}">
                             <h4 class="card-title">There's no comments on this event.</h4>
                         </div>
-                        <div class="card-body" th:if="${comments.size() != 0}">
-                            <h4 class="card-title">Latest Comments</h4>
-                        </div>
-                        <div class="comment-widgets" th:if="${comments.size() != 0}" th:each="comment: ${comments}">
-                            <!-- Comment Row -->
-                            <div class="d-flex flex-row comment-row m-t-0 my-3">
-                                <div class="p-2"><img src="https://bootdey.com/img/Content/avatar/avatar7.png" width="50" class="rounded-circle"></div>
-                                <div class="comment-text w-100 d-flex justify-content-center flex-column">
-                                    <h6 class="font-medium m-0" th:text="${comment.getUser().getFirstName()}"></h6>
-                                    <span class="m-b-15 d-block" th:text="${comment.getContent()}"></span>
-                                </div>
-                            </div> <!-- Comment Row -->
-                        </div> <!-- Card -->
+                    <div class="card-body" th:if="${comments.size() != 0}">
+                        <h4 class="card-title">Latest Comments</h4>
                     </div>
+                    <div class="comment-widgets"  th:if="${comments.size() != 0}">
+                        <!-- Comment Row -->
+                        <div class="d-flex flex-row comment-row mt-3" th:each="comment: ${comments}">
+                            <div class="p-2"><img src="https://i.imgur.com/Ur43esv.jpg" alt="user" width="50" class="rounded-circle"></div>
+                            <div class="comment-text w-100">
+                                <h6 class="font-medium" th:text="${comment.getUser().getFullName()}"></h6>
+                                <span class="m-b-15 d-block" th:text="${comment.getContent()}"></span>
+                                <div class="comment-footer"> <span class="text-muted float-right" th:text="${comment.getDate().toString().substring(0, 16)}"></span>
+                                    <form method="post" th:action="@{'/banuser/' + ${comment.getUser().getEmail()}}" sec:authorize="hasAuthority('ADMIN')">
+                                        <button class="btn btn-danger btn-sm" type="submit">Ban user</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </div>
             </div>
 
