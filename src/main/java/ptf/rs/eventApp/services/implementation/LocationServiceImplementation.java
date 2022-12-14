@@ -2,6 +2,7 @@ package ptf.rs.eventApp.services.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,7 @@ public class LocationServiceImplementation implements LocationService {
     @Override
     public List<LocationOut> getAllLocations() {
         List<Location> locations = _LocationRepository.findAll();
-        List<LocationOut> processedLocations = new ArrayList<LocationOut>();
-        for(Location location : locations) processedLocations.add(new LocationOut(location));
-        return processedLocations;
+        return locations.stream().map(LocationOut::new).collect(Collectors.toList());
     }
 
     @Override

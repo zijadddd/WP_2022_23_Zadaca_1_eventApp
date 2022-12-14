@@ -110,11 +110,45 @@
 
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
+                <div class="d-flex flex-wrap justify-content-around">
+                    <div class="col-sm-4">
+                        <h4>Choose category</h4>
+                        <form method="get" th:action="@{/}">
+                            <div class="form-group">
+                                <select class="form-control" name="categoryId" onchange="this.form.submit()">
+                                    <option value="0">Select category</option>
+                                    <option
+                                            th:each="category : ${categories}"
+                                            th:value="${category.getId()}"
+                                            th:text="${category.getName()}"
+                                    ></option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-4">
+                        <h4>Choose location</h4>
+                        <form method="get" th:action="@{/}">
+                            <div class="form-group">
+                                <select class="form-control" name="locationId" onchange="this.form.submit()">
+                                    <option value="0">Select location</option>
+                                    <option
+                                            th:each="location : ${locations}"
+                                            th:value="${location.getId()}"
+                                            th:text="${location.getName()}"
+                                    ></option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="container px-4 px-lg-5 mt-5">
                 <div
                     class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
-                    th:field="*{events}"
                 >
-                    <div class="col mb-5" th:each="event: ${events}">
+                    <h4 class="text-center" th:if="${events.size() == 0 || events == null}">There's no events.</h4>
+                    <div class="col mb-5" th:if="${events.size() != 0 || events != null}" th:each="event: ${events}">
                         <div class="card h-100">
                             <!-- Product image-->
                             <img

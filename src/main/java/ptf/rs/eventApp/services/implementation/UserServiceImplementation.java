@@ -1,7 +1,7 @@
 package ptf.rs.eventApp.services.implementation;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,9 +25,7 @@ public class UserServiceImplementation implements UserService {
     @Override
     public List<UserOut> getAllUsers() {
         List<User> users = _UserRepository.findAll();
-        List<UserOut> processedUsers = new ArrayList<UserOut>();
-        for(User user : users) processedUsers.add(new UserOut(user));
-        return processedUsers;
+        return users.stream().map(UserOut::new).collect(Collectors.toList());
     }
 
     public User getUserByEmail(String username) {

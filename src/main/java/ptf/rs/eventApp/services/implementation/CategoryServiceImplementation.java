@@ -2,6 +2,7 @@ package ptf.rs.eventApp.services.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ptf.rs.eventApp.models.entities.Category;
 import ptf.rs.eventApp.models.in.CategoryIn;
 import ptf.rs.eventApp.models.out.CategoryOut;
+import ptf.rs.eventApp.models.out.EventOut;
 import ptf.rs.eventApp.models.out.LocationOut;
 import ptf.rs.eventApp.repositories.CategoryRepository;
 import ptf.rs.eventApp.services.CategoryService;
@@ -22,9 +24,7 @@ public class CategoryServiceImplementation implements CategoryService {
     @Override
     public List<CategoryOut> getAllCategories() {
         List<Category> categories = _CategoryRepository.findAll();
-        List<CategoryOut> processedCategories = new ArrayList<CategoryOut>();
-        for(Category category : categories) processedCategories.add(new CategoryOut(category));
-        return processedCategories;
+        return categories.stream().map(CategoryOut::new).collect(Collectors.toList());
     }
 
     @Override

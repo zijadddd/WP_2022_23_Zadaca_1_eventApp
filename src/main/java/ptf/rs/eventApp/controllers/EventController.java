@@ -5,10 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ptf.rs.eventApp.models.in.EventIn;
@@ -31,8 +28,12 @@ public class EventController {
     private CommentService _CommentService;
 
     @GetMapping("/")
-    public String getAllEvents(Model model) {        
-        model.addAttribute("events", _EventService.getAllEvents());
+    public String getAllEvents(@RequestParam(value = "categoryId", required = false) String categoryId, @RequestParam(value = "locationId", required = false) String locationId, Model model) {
+        if(categoryId != null) model.addAttribute("events", _EventService.getAllEventsByCategory(Integer.parseInt(categoryId)));
+        else if (locationId != null) model.addAttribute("events", _EventService.getAllEventsByLocation(Integer.parseInt(locationId)));
+        else model.addAttribute("events", _EventService.getAllEvents());
+        model.addAttribute("locations", _LocationService.getAllLocations());
+        model.addAttribute("categories", _CategoryService.getAllCategories());
         return "index";
     }
 

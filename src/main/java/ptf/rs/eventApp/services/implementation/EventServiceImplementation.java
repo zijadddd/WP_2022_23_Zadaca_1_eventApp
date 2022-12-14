@@ -1,6 +1,7 @@
 package ptf.rs.eventApp.services.implementation;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,9 +33,19 @@ public class EventServiceImplementation implements EventService {
     @Override
     public List<EventOut> getAllEvents() {
         List<Event> events = _EventRepository.findAll();
-        List<EventOut> processedEvents = new ArrayList<EventOut>();
-        for(int i = 0; i < events.size(); i++) processedEvents.add(new EventOut(events.get(i)));
-        return processedEvents;
+        return events.stream().filter(e -> e.getDate().compareTo(new Date()) > 0).map(EventOut::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EventOut> getAllEventsByCategory(int id) {
+        List<Event> events = _EventRepository.findAll();
+        return events.stream().filter(e -> e.getCategory().getId() == id && e.getDate().compareTo(new Date()) > 0).map(EventOut::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<EventOut> getAllEventsByLocation(int id) {
+        List<Event> events = _EventRepository.findAll();
+        return events.stream().filter(e -> e.getLocation().getId() == id && e.getDate().compareTo(new Date()) > 0).map(EventOut::new).collect(Collectors.toList());
     }
 
     @Override
@@ -72,6 +83,7 @@ public class EventServiceImplementation implements EventService {
             throw new IllegalArgumentException("Invalid data");
         }
         temp.setLocation(locations.get(0));
+        temp.setImgUrl(locations.get(0).getImgUrl());
         _EventRepository.save(temp);
         return new EventOut(temp);
     }
