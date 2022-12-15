@@ -28,7 +28,14 @@ public class CategoryController {
     @PostMapping("/addcategory")
     public String addNewCategory(@ModelAttribute("category") CategoryIn category, RedirectAttributes message) {
         _CategoryService.addNewCategory(category);
-        message.addFlashAttribute("message", "Category successfully added");
+        message.addFlashAttribute("message", "Category successfully added.");
         return "redirect:adminpanel";
+    }
+
+    @PostMapping("/editcategory")
+    public String editCategory(@ModelAttribute("categoryforedit") CategoryIn category, RedirectAttributes message) {
+        _CategoryService.editCategory(category);
+        message.addFlashAttribute("message", "Category successfully edited.");
+        return "redirect:/adminpanel";
     }
 }

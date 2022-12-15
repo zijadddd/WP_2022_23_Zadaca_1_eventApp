@@ -33,11 +33,7 @@ public class CommentServiceImplementation implements CommentService {
 
     @Override
     public List<CommentOut> getCommentsForEvent(int eventId) {
-        return (List<CommentOut>) _CommentRepository
-                                    .findAll()
-                                    .stream()
-                                    .filter(c -> c.getEvent().getId() == eventId)
-                                    .map(CommentOut::new).collect(Collectors.toList());
+        return  _CommentRepository.findAll().stream().filter(c -> c.getEvent().getId() == eventId).map(CommentOut::new).collect(Collectors.toList());
     }
 
     @Override

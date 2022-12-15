@@ -11,11 +11,15 @@ import ptf.rs.eventApp.models.in.CategoryIn;
 import ptf.rs.eventApp.models.in.LocationIn;
 import ptf.rs.eventApp.models.in.UserIn;
 import ptf.rs.eventApp.services.CategoryService;
+import ptf.rs.eventApp.services.EventService;
 import ptf.rs.eventApp.services.LocationService;
 import ptf.rs.eventApp.services.UserService;
 
 @Controller
 public class RoutingPagesController {
+
+    @Autowired
+    private EventService _EventService;
 
     @Autowired
     private LocationService _LocationService;
@@ -54,6 +58,7 @@ public class RoutingPagesController {
 
     @GetMapping("/adminpanel")
     public String adminPanelPage(Model model) {
+        model.addAttribute("events", _EventService.getAllEvents());
         model.addAttribute("locations", _LocationService.getAllLocations());
         model.addAttribute("categories", _CategoryService.getAllCategories());
         return "adminpanel";

@@ -31,4 +31,11 @@ public class LocationController {
         message.addFlashAttribute("message", "Location successfully added");
         return "redirect:adminpanel";
     }
+
+    @PostMapping("/editlocation")
+    public String editLocation(@ModelAttribute("locationforedit") LocationIn location, RedirectAttributes message) {
+        _LocationService.editLocation(location);
+        message.addFlashAttribute("message", "Location successfully edited");
+        return "redirect:adminpanel";
+    }
 }

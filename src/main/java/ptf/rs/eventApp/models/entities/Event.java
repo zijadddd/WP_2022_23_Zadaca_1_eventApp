@@ -41,7 +41,7 @@ public class Event {
         this.Id = eventIn.getId();
         this.name = eventIn.getName();
         try {
-            this.date = new SimpleDateFormat("dd/MM/yyyy").parse(eventIn.getDate());  
+            this.date = new SimpleDateFormat("MM/dd/yyyy").parse(eventIn.getDate());
         } catch (Exception e) {}
         this.description = eventIn.getDescription();
         this.imgUrl = eventIn.getImgUrl();

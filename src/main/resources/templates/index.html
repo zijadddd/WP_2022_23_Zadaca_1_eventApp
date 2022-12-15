@@ -44,12 +44,9 @@
                             <a
                                 class="nav-link active"
                                 aria-current="page"
-                                href="#!"
+                                th:href="@{/}"
                                 >Home</a
                             >
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#!">About</a>
                         </li>
                         <li
                             class="nav-item"
@@ -110,7 +107,16 @@
 
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
-                <div class="d-flex flex-wrap justify-content-around">
+                <div class="d-flex flex-wrap">
+                    <div class="col-sm-4">
+                        <h4>Search using name</h4>
+                        <form method="get" th:action="@{/}">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter event name" required>
+                                <button type="submit" class="btn btn-dark mt-3">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                     <div class="col-sm-4">
                         <h4>Choose category</h4>
                         <form method="get" th:action="@{/}">
@@ -140,7 +146,6 @@
                                 </select>
                             </div>
                         </form>
-                    </div>
                 </div>
             </div>
             <div class="container px-4 px-lg-5 mt-5">

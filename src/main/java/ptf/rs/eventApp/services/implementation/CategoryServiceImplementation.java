@@ -23,8 +23,7 @@ public class CategoryServiceImplementation implements CategoryService {
 
     @Override
     public List<CategoryOut> getAllCategories() {
-        List<Category> categories = _CategoryRepository.findAll();
-        return categories.stream().map(CategoryOut::new).collect(Collectors.toList());
+        return _CategoryRepository.findAll().stream().map(CategoryOut::new).collect(Collectors.toList());
     }
 
     @Override
@@ -39,16 +38,26 @@ public class CategoryServiceImplementation implements CategoryService {
     }
 
     @Override
+    public Category getCategory(int id) {
+        return _CategoryRepository.findById(id);
+    }
+
+    @Override
     public CategoryOut addNewCategory(CategoryIn categoryIn) {
         List<CategoryOut> addedCategorys = this.getAllCategories();
         Category temp;
         try {
             temp = new Category(categoryIn);
-            for(CategoryOut Category : addedCategorys) if(Category.getName().equals(temp.getName())) throw new Exception("Lokacija vec postoji.");
+            for(CategoryOut Category : addedCategorys) if(Category.getName().equals(temp.getName())) throw new Exception("Category already exists");
             _CategoryRepository.save(temp);
             return new CategoryOut(temp);
         } catch(Exception e) {}
         return null;
     }
-    
+
+    @Override
+    public CategoryOut editCategory(CategoryIn categoryIn) {
+        _CategoryRepository.save(new Category(categoryIn));
+        return null;
+    }
 }

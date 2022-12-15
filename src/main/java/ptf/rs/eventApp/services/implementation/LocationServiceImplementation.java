@@ -22,8 +22,7 @@ public class LocationServiceImplementation implements LocationService {
 
     @Override
     public List<LocationOut> getAllLocations() {
-        List<Location> locations = _LocationRepository.findAll();
-        return locations.stream().map(LocationOut::new).collect(Collectors.toList());
+        return _LocationRepository.findAll().stream().map(LocationOut::new).collect(Collectors.toList());
     }
 
     @Override
@@ -38,6 +37,11 @@ public class LocationServiceImplementation implements LocationService {
     }
 
     @Override
+    public Location getLocation(int id) {
+        return _LocationRepository.findById(id);
+    }
+
+    @Override
     public LocationOut addNewLocation(LocationIn locationIn) {
         List<LocationOut> addedLocations = this.getAllLocations();
         Location temp;
@@ -48,5 +52,10 @@ public class LocationServiceImplementation implements LocationService {
             return new LocationOut(temp);
         } catch(Exception e) {}
         return null;
+    }
+
+    @Override
+    public void editLocation(LocationIn locationIn) {
+        _LocationRepository.save(new Location(locationIn));
     }
 }
