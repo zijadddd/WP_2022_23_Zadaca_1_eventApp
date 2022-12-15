@@ -40,89 +40,62 @@
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand">Minty</a>
                 <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
+                        class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
                 >
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div
-                    class="collapse navbar-collapse"
-                    id="navbarSupportedContent"
+                        class="collapse navbar-collapse"
+                        id="navbarSupportedContent"
                 >
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
                         <li class="nav-item">
                             <a
-                                class="nav-link active"
-                                aria-current="page"
-                                href="#!"
-                                >Home</a
+                                    class="nav-link active"
+                                    aria-current="page"
+                                    th:href="@{/}"
+                            >Home</a
                             >
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#!">About</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a
-                                class="nav-link dropdown-toggle"
-                                id="navbarDropdown"
-                                href="#"
-                                role="button"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                                >Shop</a
+                        <li
+                                class="nav-item"
+                                sec:authorize="hasAuthority('ADMIN')"
+                        >
+                            <a class="nav-link" th:href="@{/adminpanel}"
+                            >Admin panel</a
                             >
-                            <ul
-                                class="dropdown-menu"
-                                aria-labelledby="navbarDropdown"
-                            >
-                                <li>
-                                    <a class="dropdown-item" href="#!"
-                                        >All Products</a
-                                    >
-                                </li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li>
-                                    <a class="dropdown-item" href="#!"
-                                        >Popular Items</a
-                                    >
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#!"
-                                        >New Arrivals</a
-                                    >
-                                </li>
-                            </ul>
                         </li>
                     </ul>
                     <div class="d-flex">
                         <a
-                            th:href="@{/profile}"
-                            class="btn btn-outline-dark mx-1"
-                            type="submit"
-                            sec:authorize="isAuthenticated()"
+                                th:href="@{/profile}"
+                                class="btn btn-outline-dark mx-1"
+                                type="submit"
+                                sec:authorize="isAuthenticated()"
                         >
                             <i class="bi bi-person-fill"></i>
                             Profile
                         </a>
                         <a
-                            th:href="@{/logout}"
-                            class="btn btn-outline-dark mx-1"
-                            type="submit"
-                            sec:authorize="isAuthenticated()"
+                                th:href="@{/logout}"
+                                class="btn btn-outline-dark mx-1"
+                                type="submit"
+                                sec:authorize="isAuthenticated()"
                         >
                             <i class="bi bi-box-arrow-left"></i>
                             Logout
                         </a>
                         <a
-                            th:href="@{/login}"
-                            class="btn btn-outline-dark"
-                            type="submit"
-                            sec:authorize="isAnonymous()"
+                                th:href="@{/login}"
+                                class="btn btn-outline-dark"
+                                type="submit"
+                                sec:authorize="isAnonymous()"
                         >
                             <i class="bi bi-box-arrow-in-right"></i>
                             Sign in
@@ -342,6 +315,272 @@
                     </form>
                 </div>
             </div>
+            <div class="d-flex flex-wrap">
+                <div class="col-sm-4 d-flex flex-column">
+                    <h4>Choose event to edit</h4>
+                    <form method="get" th:action="@{/adminpanel/}">
+                        <div class="form-group">
+                            <select class="form-control" name="eventId" onchange="this.form.submit()">
+                                <option value="0">Select event</option>
+                                <option
+                                        th:each="event : ${events}"
+                                        th:value="${event.getId()}"
+                                        th:text="${event.getName()}"
+                                ></option>
+                            </select>
+                        </div>
+                    </form>
+                    <h4 th:if="${eventforedit != null}">Edit event</h4>
+                    <form
+                            th:action="@{/editevent}"
+                            th:object="${eventforedit}"
+                            method="post"
+                            th:if="${eventforedit != null}"
+                    >
+                        <div class="form-group">
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="id"
+                                    th:value="${eventforedit.getId()}"
+                                    readonly
+                            />
+                        </div>
+                        <div class="form-group">
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="name"
+                                    th:value="${eventforedit.getName()}"
+                                    placeholder="Event name"
+                                    required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <textarea
+                                    type="text"
+                                    class="form-control"
+                                    name="description"
+                                    th:text="${eventforedit.getDescription()}"
+                                    placeholder="Description"
+                                    required
+                            ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <div class="input-group date" id="datepickerforedit">
+                                    <input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Date"
+                                            name="date"
+                                            th:value="${eventforedit.getDate().toString().substring(0, 10)}"
+                                            required
+                                    />
+                                    <span class="input-group-append">
+                                        <span class="input-group-text bg-white">
+                                            <i class="fa fa-calendar"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="categoryId">
+                                <option th:value="${eventforedit.getCategory().getId()}" th:text="${eventforedit.getCategory().getName()}"></option>
+                                <option
+                                        th:each="category : ${categories}"
+                                        th:value="${category.id}"
+                                        th:if="${category.id != eventforedit.getCategory().getId()}"
+                                        th:text="${category.name}"
+                                ></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="locationId">
+                                <option th:value="${eventforedit.getLocation().getId()}" th:text="${eventforedit.getLocation().getName()}"></option>
+                                <option
+                                        th:each="location : ${locations}"
+                                        th:value="${location.id}"
+                                        th:if="${location.id != eventforedit.getLocation().getId()}"
+                                        th:text="${location.name}"
+                                ></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-dark">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4 d-flex flex-column">
+                    <h4>Choose category to edit</h4>
+                    <form method="get" th:action="@{/adminpanel/}">
+                        <div class="form-group">
+                            <select class="form-control" name="categoryId" onchange="this.form.submit()">
+                                <option value="0">Select category</option>
+                                <option
+                                        th:each="category : ${categories}"
+                                        th:value="${category.getId()}"
+                                        th:text="${category.getName()}"
+                                ></option>
+                            </select>
+                        </div>
+                    </form>
+                    <h4 th:if="${categoryforedit != null}">Edit category</h4>
+                    <form
+                            th:action="@{/editcategory/}"
+                            th:object="${categoryforedit}"
+                            th:if="${categoryforedit != null}"
+                            method="post"
+                    >
+                        <div class="form-group">
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="id"
+                                    th:value="${categoryforedit.getId()}"
+                                    readonly
+                            />
+                        </div>
+                        <div class="form-group">
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="name"
+                                    th:value="${categoryforedit.getName()}"
+                                    required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" name="icon">
+                                <option th:value="${categoryforedit.getIcon()}"></option>
+                                <option class="fa" th:value="fa-address-card">
+                                    &#xf2bb;
+                                </option>
+                                <option class="fa" th:value="fa-bell">
+                                    &#xf0f3;
+                                </option>
+                                <option class="fa" th:value="fa-bookmark">
+                                    &#xf02e;
+                                </option>
+                                <option class="fa" th:value="fa-building">
+                                    &#xf1ad;
+                                </option>
+                                <option class="fa" th:value="fa-volleyball">
+                                    &#xf45f;
+                                </option>
+                                <option class="fa" th:value="fa-bicycle">
+                                    &#xf206;
+                                </option>
+                                <option class="fa" th:value="fa-dumbbell">
+                                    &#xf44b;
+                                </option>
+                                <option class="fa" th:value="fa-person-running">
+                                    &#xf70c;
+                                </option>
+                                <option class="fa" th:value="fa-person-skiing">
+                                    &#xf7c9;
+                                </option>
+                                <option class="fa" th:value="fa-shirt">
+                                    &#xf553;
+                                </option>
+                                <option class="fa" th:value="fa-microchip">
+                                    &#xf2db;
+                                </option>
+                                <option class="fa" th:value="fa-tree">
+                                    &#xf1bb;
+                                </option>
+                                <option class="fa" th:value="fa-volcano">
+                                    &#xf770;
+                                </option>
+                                <option class="fa" th:value="fa-video">
+                                    &#xf03d;
+                                </option>
+                                <option class="fa" th:value="fa-comments">
+                                    &#xf086;
+                                </option>
+                                <option class="fa" th:value="fa-street-view">
+                                    &#xf21d;
+                                </option>
+                                <option class="fa" th:value="fa-teamspeak">
+                                    &#xf4f9;
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-dark">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-sm-4 d-flex flex-column">
+                    <h4>Choose location to edit</h4>
+                    <form method="get" th:action="@{/adminpanel/}">
+                        <div class="form-group">
+                            <select class="form-control" name="locationId" onchange="this.form.submit()">
+                                <option value="0">Select location</option>
+                                <option
+                                        th:each="location : ${locations}"
+                                        th:value="${location.getId()}"
+                                        th:text="${location.getName()}"
+                                ></option>
+                            </select>
+                        </div>
+                    </form>
+                    <h4 th:if="${locationforedit != null}">Edit location</h4>
+                    <form
+                            th:action="@{/editlocation}"
+                            th:object="${locationforedit}"
+                            th:if="${locationforedit != null}"
+                            method="post"
+                    >
+                        <div class="form-group">
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="id"
+                                    th:value="${locationforedit.getId()}"
+                                    readonly
+                            />
+                        </div>
+                        <div class="form-group">
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="name"
+                                    th:value="${locationforedit.getName()}"
+                                    required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    name="imgUrl"
+                                    th:value="${locationforedit.getImgUrl()}"
+                                    required
+                            />
+                        </div>
+                        <div class="form-group">
+                                <textarea
+                                        type="text"
+                                        class="form-control"
+                                        name="description"
+                                        th:text="${locationforedit.getDescription()}"
+                                        required
+                                ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-dark">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </section>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
@@ -358,6 +597,11 @@
         <script type="text/javascript">
             $(function () {
                 $("#datepicker").datepicker();
+            });
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $("#datepickerforedit").datepicker();
             });
         </script>
     </body>
