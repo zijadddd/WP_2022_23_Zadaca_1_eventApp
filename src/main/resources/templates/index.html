@@ -193,7 +193,7 @@
             </div>
         </section>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
+        <footer th:class="'py-5 bg-dark ' + ${events.size() > 0 ? '' : 'fixed-bottom'}">
             <div class="container">
                 <p class="m-0 text-center text-white">
                     Copyright &copy; Minty 2022
