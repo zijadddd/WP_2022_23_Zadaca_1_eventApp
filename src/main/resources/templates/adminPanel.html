@@ -8,9 +8,8 @@
         />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Shop Homepage - Start Bootstrap Template</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <title>Admin panel</title>
+        <link rel="icon" th:href="@{/images/minty.png}" type="image/x-icon">
         <!-- Bootstrap icons-->
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
@@ -187,8 +186,11 @@
                                 ></option>
                             </select>
                         </div>
+                        <p th:if="${categories.size() == 0 && locations.size() == 0}">You need to add at least one category and location to be able to add event.</p>
+                        <p th:if="${categories.size() == 0 && locations.size() > 0}">You need to add at least one category to be able to add event.</p>
+                        <p th:if="${categories.size() > 0 && locations.size() == 0}">You need to add at least one location to be able to add event.</p>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-dark">
+                            <button type="submit" class="btn btn-dark" th:if="${categories.size() > 0 && locations.size() > 0}">
                                 Submit
                             </button>
                         </div>
@@ -211,7 +213,7 @@
                             />
                         </div>
                         <div class="form-group">
-                            <select class="form-control" name="icon">
+                            <select class="fa-solid form-control" name="icon">
                                 <option value="">Choose icon</option>
                                 <option class="fa" th:value="fa-address-card">
                                     &#xf2bb;
@@ -368,13 +370,14 @@
                         </div>
                         <div class="form-group">
                             <div>
+                                Current date: <p th:text="${eventforedit.getDate().toString().substring(0, 10)}"></p>
                                 <div class="input-group date" id="datepickerforedit">
+
                                     <input
                                             type="text"
                                             class="form-control"
                                             placeholder="Date"
                                             name="date"
-                                            th:value="${eventforedit.getDate().toString().substring(0, 10)}"
                                             required
                                     />
                                     <span class="input-group-append">
@@ -454,7 +457,7 @@
                             />
                         </div>
                         <div class="form-group">
-                            <select class="form-control" name="icon">
+                            <select class="fa-solid form-control" name="icon">
                                 <option th:value="${categoryforedit.getIcon()}"></option>
                                 <option class="fa" th:value="fa-address-card">
                                     &#xf2bb;
@@ -586,7 +589,7 @@
         <footer class="py-5 bg-dark">
             <div class="container">
                 <p class="m-0 text-center text-white">
-                    Copyright &copy; Your Website 2022
+                    Copyright &copy; Minty 2022
                 </p>
             </div>
         </footer>

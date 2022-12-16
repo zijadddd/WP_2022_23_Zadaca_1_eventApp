@@ -8,15 +8,17 @@
         />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Shop Homepage - Start Bootstrap Template</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <title th:text="${event.getName()}"></title>
+        <link rel="icon" th:href="@{/images/minty.png}" type="image/x-icon">
         <!-- Bootstrap icons-->
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
             rel="stylesheet"
         />
-
+        <script
+                src="https://kit.fontawesome.com/ed23f4033a.js"
+                crossorigin="anonymous"
+        ></script>
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="/bootstrap/css/styles.css" rel="stylesheet" />
         <link href="/css/style.css" rel="stylesheet"/>
@@ -116,10 +118,13 @@
                     <div class="col-md-8 px-3 border-top-0">
                       <div class="card-block px-3">
                         <h4 class="card-title text-dark" th:text="${event.getName()}"></h4>
-                        <p class="card-text text-dark" th:text="${location.getName()}"></p>
-                        <p class="card-text text-dark" th:text="${event.getDate().toString().substring(0, 10)}"></p>
-                        <p class="card-text text-dark" th:text="${event.getDescription()}"></p></span>
-                        <p class="card-text text-dark" th:text="${category.getName()}"></p>
+                        <p class="card-text text-dark" th:text="${'Location:' + location.getName()}"></p>
+                        <p class="card-text text-dark" th:text="${'Date: ' + event.getDate().toString().substring(0, 10)}"></p>
+                        <p class="card-text text-dark" th:text="${'Description: ' + event.getDescription()}"></p>
+                        <div class="d-flex">
+                            <p class="card-text text-dark" th:text="${'Category: ' + category.getName() + '&nbsp;'}"></p>
+                            <i class="fa-solid" th:classappend="${category.getIcon()}"></i>
+                        </div>
                       </div>
                     </div>
           
@@ -171,10 +176,10 @@
           </section>
         <!-- End of card -->
         <!-- Footer-->
-        <footer class="py-5 bg-dark fixed-bottom">
+        <footer class="py-5 bg-dark">
             <div class="container">
                 <p class="m-0 text-center text-white">
-                    Copyright &copy; Your Website 2022
+                    Copyright &copy; Minty 2022
                 </p>
             </div>
         </footer>
